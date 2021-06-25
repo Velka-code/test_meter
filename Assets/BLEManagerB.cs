@@ -169,7 +169,7 @@ public class BLEManagerB : MonoBehaviour
 
                                 this.BLEch2button.image.color = Color.cyan;
                                 this.BLEch2buttonText.fontSize = 24;
-                                this.BLEch2buttonText.text = "圧縮機\n圧力計測中";
+                                this.BLEch2buttonText.text = "低温側圧縮機\n圧力計測中";
                             }
                             else
                             {

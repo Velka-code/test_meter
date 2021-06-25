@@ -4,13 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Text;
-
-public class BLEManagerC: MonoBehaviour
+public class BLEManagerG : MonoBehaviour
 {
     //DeviceName,ServiceUUID,Characteristicをperipheral側と合わせる
-    public string DeviceName = "ESP32C";
-    public string ServiceUUID = "406056f0-51f3-45f3-9899-e29b56e610f3";
-    public string Characteristic = "7017eec7-8ce0-41c5-aad8-667711d16754";
+    public string DeviceName = "ESP32G";
+    public string ServiceUUID = "4e272f69-1ced-435f-8f26-d456d5b0dbc2";
+    public string Characteristic = "7b86c7e7-317c-4bc1-8b43-c56fec0c0093";
 
     private float _timeout = 1f;
     private States _state = States.None;
@@ -20,9 +19,9 @@ public class BLEManagerC: MonoBehaviour
 
     private byte[] _dataBytes = null;
 
-    public float HighEvaporatorData;
+    public float LowValveData;
 
-    public bool _scanch3button = false;
+    public bool _scanch7button = false;
 
 
     enum States
@@ -48,17 +47,17 @@ public class BLEManagerC: MonoBehaviour
     }
 
 
-    public Button BLEch3button;
-    public Text BLEch3buttonText;
+    public Button BLEch7button;
+    public Text BLEch7buttonText;
 
     // Start is called before the first frame update
     public void Start()
     {
-        this.BLEch3button = GameObject.Find("BLEch3Button").GetComponentInChildren<Button>();
-        this.BLEch3buttonText = BLEch3button.GetComponentInChildren<Text>();
+        this.BLEch7button = GameObject.Find("BLEch7Button").GetComponentInChildren<Button>();
+        this.BLEch7buttonText = BLEch7button.GetComponentInChildren<Text>();
 
-        this.BLEch3button.image.color = Color.gray;
-        this.BLEch3buttonText.text = "None";
+        this.BLEch7button.image.color = Color.gray;
+        this.BLEch7buttonText.text = "None";
 
         BluetoothLEHardwareInterface.Initialize(true, false, () =>
         {
@@ -85,8 +84,8 @@ public class BLEManagerC: MonoBehaviour
                 {
                     case States.None:
 
-                        this.BLEch3button.image.color = Color.gray;
-                        this.BLEch3buttonText.text = "None";
+                        this.BLEch7button.image.color = Color.gray;
+                        this.BLEch7buttonText.text = "None";
 
                         BluetoothLEHardwareInterface.Initialize(true, false, () =>
                         {
@@ -100,10 +99,10 @@ public class BLEManagerC: MonoBehaviour
                     case States.Scan:
 
 
-                        if (this._scanch3button)
+                        if (this._scanch7button)
                         {
-                            this.BLEch3button.image.color = Color.yellow;
-                            this.BLEch3buttonText.text = "Scannig...";
+                            this.BLEch7button.image.color = Color.yellow;
+                            this.BLEch7buttonText.text = "Scannig...";
 
                             BluetoothLEHardwareInterface.ScanForPeripheralsWithServices(null, (address, name) =>
                             {
@@ -116,7 +115,7 @@ public class BLEManagerC: MonoBehaviour
                                 }
                             }, null, false, false);
 
-                            this._scanch3button = false;
+                            this._scanch7button = false;
                         }
 
                         break;
@@ -126,8 +125,8 @@ public class BLEManagerC: MonoBehaviour
                         this._foundID = false;
 
 
-                        this.BLEch3button.image.color = Color.green;
-                        this.BLEch3buttonText.text = "Connect...";
+                        this.BLEch7button.image.color = Color.green;
+                        this.BLEch7buttonText.text = "Connect...";
 
                         BluetoothLEHardwareInterface.ConnectToPeripheral(this._deviceAddress, null, null, (address, serviceUUID, characteristicUUID) =>
                         {
@@ -147,7 +146,7 @@ public class BLEManagerC: MonoBehaviour
 
                     case States.Subscribe:
 
-                        this.BLEch3buttonText.text = "Connected";
+                        this.BLEch7buttonText.text = "Connected";
 
                         BluetoothLEHardwareInterface.SubscribeCharacteristicWithDeviceAddress(this._deviceAddress, this.ServiceUUID, this.Characteristic, null, (address, characteristicUUID, bytes) => {
                             this._state = States.None;
@@ -163,11 +162,11 @@ public class BLEManagerC: MonoBehaviour
                                     dataByte[i] = BitConverter.ToInt32(this._dataBytes, 0);
                                 }
 
-                                this.HighEvaporatorData = (float)dataByte[0] / 10f;
+                                this.LowValveData = (float)dataByte[0] / 10f;
 
-                                this.BLEch3button.image.color = Color.cyan;
-                                this.BLEch3buttonText.fontSize = 24;
-                                this.BLEch3buttonText.text = "低温側蒸発器\n圧力計測中";
+                                this.BLEch7button.image.color = Color.cyan;
+                                this.BLEch7buttonText.fontSize = 24;
+                                this.BLEch7buttonText.text = "高温側膨張弁\n圧力計測中";
                             }
                             else
                             {
@@ -181,8 +180,8 @@ public class BLEManagerC: MonoBehaviour
                     case States.Unsubscribe:
                         BluetoothLEHardwareInterface.UnSubscribeCharacteristic(this._deviceAddress, this.ServiceUUID, this.Characteristic, null);
                         SetState(States.Disconnect, 4f);
-                        this.BLEch3button.image.color = Color.red;
-                        this.BLEch3buttonText.text = "Undata";
+                        this.BLEch7button.image.color = Color.red;
+                        this.BLEch7buttonText.text = "Undata";
                         break;
 
                     case States.Disconnect:
@@ -203,8 +202,8 @@ public class BLEManagerC: MonoBehaviour
                                 this._state = States.None;
                             });
                         }
-                        this.BLEch3button.image.color = Color.red;
-                        this.BLEch3buttonText.text = "Disconnect";
+                        this.BLEch7button.image.color = Color.red;
+                        this.BLEch7buttonText.text = "Disconnect";
                         break;
 
                 }

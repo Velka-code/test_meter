@@ -45,6 +45,10 @@ public class PanelManeger : MonoBehaviour
     private Button BLEch1button;
     private Button BLEch2button;
     private Button BLEch3button;
+    private Button BLEch4button;
+    private Button BLEch5button;
+    private Button BLEch6button;
+    private Button BLEch7button;
 
     public GameObject canvas;
     public GameObject ble;
@@ -81,8 +85,12 @@ public class PanelManeger : MonoBehaviour
         this.defultbutton = GameObject.Find("DefultButton").GetComponentInChildren<Button>();
         this.setbutton = GameObject.Find("SetButton").GetComponentInChildren<Button>();
         this.BLEch1button = GameObject.Find("BLEch1Button").GetComponentInChildren<Button>();
-        this.BLEch1button = GameObject.Find("BLEch2Button").GetComponentInChildren<Button>();
-        this.BLEch1button = GameObject.Find("BLEch3Button").GetComponentInChildren<Button>();
+        this.BLEch2button = GameObject.Find("BLEch2Button").GetComponentInChildren<Button>();
+        this.BLEch3button = GameObject.Find("BLEch3Button").GetComponentInChildren<Button>();
+        this.BLEch4button = GameObject.Find("BLEch4Button").GetComponentInChildren<Button>();
+        this.BLEch5button = GameObject.Find("BLEch5Button").GetComponentInChildren<Button>();
+        this.BLEch6button = GameObject.Find("BLEch6Button").GetComponentInChildren<Button>();
+        this.BLEch7button = GameObject.Find("BLEch7Button").GetComponentInChildren<Button>();
 
 
         this.canvas = GameObject.Find("Canvas");
@@ -222,6 +230,53 @@ public class PanelManeger : MonoBehaviour
 
     }
 
+    public void blech4ButtonClick()
+    {
+        bool scanButton = this.ble.GetComponent<BLEManagerD>()._scanch4button;
+
+        if (!scanButton)
+        {
+            this.ble.GetComponent<BLEManagerD>().Start();
+            this.ble.GetComponent<BLEManagerD>()._scanch4button = true;
+        }
+
+    }
+
+    public void blech5ButtonClick()
+    {
+        bool scanButton = this.ble.GetComponent<BLEManagerE>()._scanch5button;
+
+        if (!scanButton)
+        {
+            this.ble.GetComponent<BLEManagerE>().Start();
+            this.ble.GetComponent<BLEManagerE>()._scanch5button = true;
+        }
+
+    }
+
+    public void blech6ButtonClick()
+    {
+        bool scanButton = this.ble.GetComponent<BLEManagerF>()._scanch6button;
+
+        if (!scanButton)
+        {
+            this.ble.GetComponent<BLEManagerF>().Start();
+            this.ble.GetComponent<BLEManagerF>()._scanch6button = true;
+        }
+
+    }
+
+    public void blech7ButtonClick()
+    {
+        bool scanButton = this.ble.GetComponent<BLEManagerG>()._scanch7button;
+
+        if (!scanButton)
+        {
+            this.ble.GetComponent<BLEManagerG>().Start();
+            this.ble.GetComponent<BLEManagerG>()._scanch7button = true;
+        }
+
+    }
 
 
     private void CheckInputValue(string input_value,string input_num ,float max,float min)

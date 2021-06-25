@@ -194,7 +194,8 @@ public class BLEManager : MonoBehaviour
                                 //textParameter.text += "Data: " + datat[0];
                                 //textParameter.text += Environment.NewLine;
                                 this.BLEch1button.image.color = Color.cyan;
-                                this.BLEch1buttonText.text = "温度計測中";
+                                this.BLEch1buttonText.fontSize = 24;
+                                this.BLEch1buttonText.text = "制御用温度\n温度計測中";
                             }
                             else
                             {

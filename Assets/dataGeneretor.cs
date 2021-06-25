@@ -41,16 +41,17 @@ public class dataGeneretor : MonoBehaviour
     {
         dummy = false;
 
-        
+        /*
         //圧力計6+温度データをダミーで生成
         float d1 = Random.Range(0.5f, 1.0f);
         float d2 = Random.Range(1.0f, 1.5f);
         float d3 = Random.Range(2.0f, 2.5f);
         float d4 = Random.Range(2.5f, 3.0f);
-        //float d5 = Random.Range(3.0f, 3.5f);
-        //float d6 = Random.Range(1.0f, 1.5f);
-        //float d7 = Random.Range(-5.0f, 3.0f); 
+        float d5 = Random.Range(3.0f, 3.5f);
+        float d6 = Random.Range(1.0f, 1.5f);
+        float d7 = Random.Range(-5.0f, 3.0f); 
 
+        
         //小数点以下1位までのデータに丸め
         d1 = d1 * 10;
         this.LowValve = Mathf.Floor(d1) / 10;
@@ -63,7 +64,7 @@ public class dataGeneretor : MonoBehaviour
          
         d4 = d4 * 10;
         this.HighValve = Mathf.Floor(d4) / 10;
-        /*
+        
         d5 = d5 * 10;
         this.HighEvaporator = Mathf.Floor(d5) / 10;
         
@@ -86,10 +87,10 @@ public class dataGeneretor : MonoBehaviour
         */
 
         //BLE通信によりデータを取得
-        //this.LowValve = this.ble.GetComponent<BLEManager>().LowValveData;
-        //this.LowEvaporator = this.ble.GetComponent<BLEManager>().LowEvaporatorData;        
-        //this.LowCompressor = this.ble.GetComponent<BLEManager>().LowCompressorData;
-        //this.HighValve = this.ble.GetComponent<BLEManagerB>().HighValveData;
+        this.LowValve = this.ble.GetComponent<BLEManagerG>().LowValveData;
+        this.LowEvaporator = this.ble.GetComponent<BLEManagerF>().LowEvaporatorData;        
+        this.LowCompressor = this.ble.GetComponent<BLEManagerE>().LowCompressorData;
+        this.HighValve = this.ble.GetComponent<BLEManagerD>().HighValveData;
         this.HighEvaporator = this.ble.GetComponent<BLEManagerC>().HighEvaporatorData;
         this.HighCompressor = this.ble.GetComponent<BLEManagerB>().HighCompressorData;        
         this.Temperature = this.ble.GetComponent<BLEManager>().TemperatureData;
