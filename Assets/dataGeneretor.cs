@@ -41,7 +41,7 @@ public class dataGeneretor : MonoBehaviour
     {
         dummy = false;
 
-        /*
+        
         //圧力計6+温度データをダミーで生成
         float d1 = Random.Range(0.5f, 1.0f);
         float d2 = Random.Range(1.0f, 1.5f);
@@ -84,7 +84,7 @@ public class dataGeneretor : MonoBehaviour
 
         //Debug.Log("Temperature: " + this.Temperature);
 
-        */
+        /*
 
         //BLE通信によりデータを取得
         this.LowValve = this.ble.GetComponent<BLEManagerG>().LowValveData;
@@ -94,7 +94,7 @@ public class dataGeneretor : MonoBehaviour
         this.HighEvaporator = this.ble.GetComponent<BLEManagerC>().HighEvaporatorData;
         this.HighCompressor = this.ble.GetComponent<BLEManagerB>().HighCompressorData;        
         this.Temperature = this.ble.GetComponent<BLEManager>().TemperatureData;
-
+        */
 
         // 1秒間待つ
         yield return new WaitForSeconds(1);
